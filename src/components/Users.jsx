@@ -22,7 +22,7 @@ const Users = () => {
 
   return (
     <>
-      <div className='flex h-screen justify-center mt-5 text-left'>
+      <div className='flex h-auto justify-center mt-5 text-left'>
         <div className='overflow-x-auto'>
           <table className='table-auto w-auto'>
             <thead>

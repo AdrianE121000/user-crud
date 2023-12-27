@@ -3,6 +3,7 @@ import { Rutas } from './routes/Rutas';
 import NavBar from './components/NavBar';
 import { useContext } from 'react';
 import { ThemeContext } from './context/ThemeContext';
+import Footer from './components/Footer';
 
 function App() {
   const { themeMode } = useContext(ThemeContext);
@@ -21,6 +22,7 @@ function App() {
         <BrowserRouter>
           <NavBar />
           <Rutas />
+          <Footer />
         </BrowserRouter>
       </div>
     </>

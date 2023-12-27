@@ -22,7 +22,7 @@ const NavBar = () => {
           <Link
             to='/'
             className='font-bold text-xl'>
-            Usuarios
+            Inicio
           </Link>
           <div className='hidden md:block'>
             <Link

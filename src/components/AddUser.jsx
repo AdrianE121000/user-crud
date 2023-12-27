@@ -25,7 +25,7 @@ const AddUser = () => {
   return (
     <>
       <div
-        className={`max-w-md mx-auto mt-10 p-6 rounded-lg shadow-xl ${
+        className={`max-w-md mx-auto mt-5 py-2 px-5 rounded-lg shadow-xl ${
           themeMode ? 'bg-gray-300' : 'bg-gray-700'
         }`}>
         <h1 className='text-2xl font-bold mb-4'>Agregar Usuario</h1>
