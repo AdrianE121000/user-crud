@@ -1,7 +1,27 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
+import { useUserStore } from '../store/users';
+import { useRef } from 'react';
 const AddUser = () => {
   const { themeMode } = useContext(ThemeContext);
+  const addUser = useUserStore((state) => state.addUser);
+  const formRef = useRef();
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const newUser = {
+      name: e.target[0].value,
+      last: e.target[1].value,
+      userName: e.target[2].value,
+      email: e.target[3].value,
+    };
+
+    addUser(newUser);
+
+    formRef.current.reset();
+  };
+
   return (
     <>
       <div
@@ -9,16 +29,18 @@ const AddUser = () => {
           themeMode ? 'bg-gray-300' : 'bg-gray-700'
         }`}>
         <h1 className='text-2xl font-bold mb-4'>Agregar Usuario</h1>
-        <form>
+        <form
+          ref={formRef}
+          onSubmit={handleSubmit}>
           <div className='mb-4'>
             <label
-              htmlFor='nombre'
+              htmlFor='name'
               className='block font-bold mb-2'>
               Nombre
             </label>
             <input
               type='text'
-              id='nombre'
+              id='name'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
                   ? 'focus:border-blue-500'
@@ -28,13 +50,13 @@ const AddUser = () => {
           </div>
           <div className='mb-4'>
             <label
-              htmlFor='apellido'
+              htmlFor='last'
               className='block font-bold mb-2'>
               Apellido
             </label>
             <input
               type='text'
-              id='apellido'
+              id='last'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
                   ? 'focus:border-blue-500'
@@ -44,13 +66,13 @@ const AddUser = () => {
           </div>
           <div className='mb-4'>
             <label
-              htmlFor='username'
+              htmlFor='userName'
               className='block font-bold mb-2'>
               Username
             </label>
             <input
               type='text'
-              id='username'
+              id='userName'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
                   ? 'focus:border-blue-500'

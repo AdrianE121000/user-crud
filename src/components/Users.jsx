@@ -1,18 +1,25 @@
 import { useContext } from 'react';
 import { DeleteIcon, EditIcon } from './Icons';
 import { ThemeContext } from '../context/ThemeContext';
+import { useUserStore } from '../store/users';
+import EditUser from './EditUser';
+import { useState } from 'react';
+import { useRef } from 'react';
 
 const Users = () => {
   const { themeMode } = useContext(ThemeContext);
-  const users = [
-    {
-      id: 1,
-      name: 'Adrian',
-      last: 'Perez',
-      userName: 'Adriane121000',
-      email: 'exaple@gmail.com',
-    },
-  ];
+  const [editingUser, setEditingUser] = useState(false);
+  const user = useRef({});
+  const users = useUserStore((state) => state.users);
+  const deleteUser = useUserStore((state) => state.deleteUser);
+
+  const handleEdit = (id) => {
+    const userForEdit = users.filter((user) => user.id === id);
+    user.current = userForEdit[0];
+
+    setEditingUser(!editingUser);
+  };
+
   return (
     <>
       <div className='flex h-screen justify-center mt-5 text-left'>
@@ -95,10 +102,12 @@ const Users = () => {
                     className={`px-4 py-2 border ${
                       themeMode ? 'border-black' : 'border-white'
                     }`}>
-                    <button className='mr-2'>
+                    <button
+                      onClick={() => handleEdit(user.id)}
+                      className='mr-2'>
                       <EditIcon />
                     </button>
-                    <button>
+                    <button onClick={() => deleteUser(user.id)}>
                       <DeleteIcon />
                     </button>
                   </td>
@@ -108,6 +117,14 @@ const Users = () => {
           </table>
         </div>
       </div>
+      {editingUser && (
+        <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
+          <EditUser
+            setEditingUser={setEditingUser}
+            user={user}
+          />
+        </div>
+      )}
     </>
   );
 };
