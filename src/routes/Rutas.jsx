@@ -26,7 +26,7 @@ export function Rutas() {
         />
         <Route
           path='*'
-          element={<Navigate to={<Home />} />}
+          element={<Navigate to='/' />}
         />
       </Routes>
     </>

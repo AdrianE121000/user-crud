@@ -6,7 +6,7 @@ const Footer = () => {
   return (
     <footer className='p-4 text-center flex justify-center'>
       <div
-        className={`rounded-3xl w-2/3 fixed bottom-2 border px-3 py-1 ${
+        className={`rounded-3xl w-2/3  border px-3 py-1 ${
           themeMode ? 'border-black bg-gray-300' : 'border-white bg-gray-950'
         }`}>
         <p>
