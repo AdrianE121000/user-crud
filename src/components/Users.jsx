@@ -12,6 +12,7 @@ const Users = () => {
   const user = useRef({});
   const users = useUserStore((state) => state.users);
   const deleteUser = useUserStore((state) => state.deleteUser);
+  const [show, setShow] = useState('hidden');
 
   const handleEdit = (id) => {
     const userForEdit = users.filter((user) => user.id === id);
@@ -122,9 +123,18 @@ const Users = () => {
           <EditUser
             setEditingUser={setEditingUser}
             user={user}
+            setShow={setShow}
           />
         </div>
       )}
+      <div
+        className={`${show} animate-slowDown right-2 md:right-10 bottom-20  fixed border p-5 rounded-2xl ${
+          themeMode
+            ? 'border-black bg-gray-300 text-green-900'
+            : 'border-white bg-gray-800 text-green-400'
+        }`}>
+        usuario editado correctamente
+      </div>
     </>
   );
 };

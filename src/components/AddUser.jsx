@@ -2,10 +2,12 @@ import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useUserStore } from '../store/users';
 import { useRef } from 'react';
+import { useState } from 'react';
 const AddUser = () => {
   const { themeMode } = useContext(ThemeContext);
   const addUser = useUserStore((state) => state.addUser);
   const formRef = useRef();
+  const [show, setShow] = useState('hidden');
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +22,12 @@ const AddUser = () => {
     addUser(newUser);
 
     formRef.current.reset();
+
+    setShow((state) => (state === 'hidden' ? 'block' : 'hidden'));
+
+    setTimeout(() => {
+      setShow((state) => (state === 'hidden' ? 'block' : 'hidden'));
+    }, 2500);
   };
 
   return (
@@ -39,6 +47,7 @@ const AddUser = () => {
               Nombre
             </label>
             <input
+              required
               type='text'
               id='name'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
@@ -55,6 +64,7 @@ const AddUser = () => {
               Apellido
             </label>
             <input
+              required
               type='text'
               id='last'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
@@ -72,6 +82,7 @@ const AddUser = () => {
             </label>
             <input
               type='text'
+              required
               id='userName'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
@@ -87,6 +98,7 @@ const AddUser = () => {
               Email
             </label>
             <input
+              required
               type='email'
               id='email'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
@@ -107,8 +119,15 @@ const AddUser = () => {
           </button>
         </form>
       </div>
+      <div
+        className={`${show} animate-slowDown right-2 md:right-10 bottom-20  fixed border p-5 rounded-2xl ${
+          themeMode
+            ? 'border-black bg-gray-300 text-green-900'
+            : 'border-white bg-gray-800 text-green-400'
+        }`}>
+        usuario agregado correctamente
+      </div>
     </>
   );
 };
-//bg-blue-500 hover:bg-blue-700
 export default AddUser;

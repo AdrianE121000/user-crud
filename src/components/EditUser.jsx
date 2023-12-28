@@ -2,7 +2,7 @@ import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useUserStore } from '../store/users';
 
-const EditUser = ({ user, setEditingUser }) => {
+const EditUser = ({ user, setEditingUser, setShow }) => {
   const { themeMode } = useContext(ThemeContext);
   const editUser = useUserStore((state) => state.editUser);
 
@@ -20,6 +20,12 @@ const EditUser = ({ user, setEditingUser }) => {
     editUser(user.current.id, newUser);
 
     setEditingUser((prevState) => !prevState);
+
+    setShow((state) => (state === 'hidden' ? 'block' : 'hidden'));
+
+    setTimeout(() => {
+      setShow((state) => (state === 'hidden' ? 'block' : 'hidden'));
+    }, 2500);
   };
 
   return (
