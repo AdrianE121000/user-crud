@@ -10,14 +10,18 @@ const EditUser = ({ user, setEditingUser, setShow }) => {
     e.preventDefault();
 
     const newUser = {
-      id: user.current.id,
-      name: e.target[0].value,
-      last: e.target[1].value,
-      userName: e.target[2].value,
+      name: {
+        first: e.target[0].value,
+        last: e.target[1].value,
+      },
       email: e.target[3].value,
+      login: {
+        uuid: user.current.login.uuid,
+        username: e.target[2].value,
+      },
     };
 
-    editUser(user.current.id, newUser);
+    editUser(user.current.login.uuid, newUser);
 
     setEditingUser((prevState) => !prevState);
 
@@ -46,7 +50,7 @@ const EditUser = ({ user, setEditingUser, setShow }) => {
               required
               type='text'
               id='name'
-              placeholder={user.current.name}
+              placeholder={user.current.name.first}
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
                   ? 'focus:border-blue-500'
@@ -64,7 +68,7 @@ const EditUser = ({ user, setEditingUser, setShow }) => {
               required
               type='text'
               id='last'
-              placeholder={user.current.last}
+              placeholder={user.current.name.last}
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
                   ? 'focus:border-blue-500'
@@ -82,7 +86,7 @@ const EditUser = ({ user, setEditingUser, setShow }) => {
               required
               type='text'
               id='userName'
-              placeholder={user.current.userName}
+              placeholder={user.current.login.username}
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
                   ? 'focus:border-blue-500'

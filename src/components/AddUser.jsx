@@ -13,10 +13,14 @@ const AddUser = () => {
     e.preventDefault();
 
     const newUser = {
-      name: e.target[0].value,
-      last: e.target[1].value,
-      userName: e.target[2].value,
+      name: {
+        first: e.target[0].value,
+        last: e.target[1].value,
+      },
       email: e.target[3].value,
+      login: {
+        username: e.target[2].value,
+      },
     };
 
     addUser(newUser);
@@ -76,14 +80,14 @@ const AddUser = () => {
           </div>
           <div className='mb-4'>
             <label
-              htmlFor='userName'
+              htmlFor='username'
               className='block font-bold mb-2'>
               Username
             </label>
             <input
               type='text'
               required
-              id='userName'
+              id='username'
               className={`w-full border rounded-lg py-2 px-3 focus:outline-none ${
                 themeMode
                   ? 'focus:border-blue-500'

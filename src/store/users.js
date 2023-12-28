@@ -7,25 +7,36 @@ export const useUserStore = create(
       return {
         users: [],
 
+        fetchUsers: async () => {
+          const { users } = get();
+          const res = await fetch('https://randomuser.me/api/?results=10');
+          const json = await res.json();
+
+          const newUsers = [...users, ...json.results];
+
+          set({ users: newUsers });
+        },
         addUser: (user) => {
           const id = crypto.randomUUID();
-          const newUser = { ...user, id: id };
+          const newUser = {
+            ...user,
+            login: { uuid: id, username: user.login.username },
+          };
 
           set((state) => ({ users: [...state.users, newUser] }));
         },
         deleteUser: (id) => {
           const { users } = get();
 
-          const newUsers = users.filter((user) => user.id !== id);
+          const newUsers = users.filter((user) => user.login.uuid !== id);
 
           set({ users: newUsers });
         },
         editUser: (id, user) => {
-          const { deleteUser } = get();
+          const { users } = get();
+          const index = users.findIndex((data) => data.login.uuid === id);
 
-          deleteUser(id);
-
-          set((state) => ({ users: [...state.users, user] }));
+          users[index] = user;
         },
       };
     },

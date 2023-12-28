@@ -12,111 +12,124 @@ const Users = () => {
   const user = useRef({});
   const users = useUserStore((state) => state.users);
   const deleteUser = useUserStore((state) => state.deleteUser);
+  const fetchUsers = useUserStore((state) => state.fetchUsers);
   const [show, setShow] = useState('hidden');
 
   const handleEdit = (id) => {
-    const userForEdit = users.filter((user) => user.id === id);
+    const userForEdit = users.filter((user) => user.login.uuid === id);
     user.current = userForEdit[0];
 
     setEditingUser(!editingUser);
   };
 
+  const handleClick = () => {
+    fetchUsers();
+  };
+
   return (
     <>
-      <div className='flex h-auto justify-center mt-5 text-left'>
-        <div className='overflow-x-auto'>
-          <table className='table-auto w-auto'>
-            <thead>
-              <tr>
-                <th
+      <div className='flex flex-col justify-center items-center mt-5'>
+        <button
+          className={`border w-auto rounded-2xl px-5 py-2 mb-2 ${
+            themeMode
+              ? 'border-black hover:bg-gray-300'
+              : 'border-white hover:bg-gray-950'
+          }`}
+          onClick={handleClick}>
+          Obtener usuarios randoms
+        </button>
+
+        <table className='table-auto mt-3 w-4/5'>
+          <thead>
+            <tr>
+              <th
+                className={`px-4 py-2 border ${
+                  themeMode ? 'border-black' : 'border-white'
+                }`}>
+                ID
+              </th>
+              <th
+                className={`px-4 py-2 border ${
+                  themeMode ? 'border-black' : 'border-white'
+                }`}>
+                Nombre
+              </th>
+              <th
+                className={`px-4 py-2 border ${
+                  themeMode ? 'border-black' : 'border-white'
+                }`}>
+                Apellido
+              </th>
+              <th
+                className={`px-4 py-2 border ${
+                  themeMode ? 'border-black' : 'border-white'
+                }`}>
+                Nombre De Usuario
+              </th>
+              <th
+                className={`px-4 py-2 border ${
+                  themeMode ? 'border-black' : 'border-white'
+                }`}>
+                Email
+              </th>
+              <th
+                className={`px-4 py-2 border ${
+                  themeMode ? 'border-black' : 'border-white'
+                }`}>
+                Acciones
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {users.map((data, index) => (
+              <tr key={data.login.uuid}>
+                <td
                   className={`px-4 py-2 border ${
                     themeMode ? 'border-black' : 'border-white'
                   }`}>
-                  ID
-                </th>
-                <th
+                  {index + 1}
+                </td>
+                <td
                   className={`px-4 py-2 border ${
                     themeMode ? 'border-black' : 'border-white'
                   }`}>
-                  Nombre
-                </th>
-                <th
+                  {data.name.first}
+                </td>
+                <td
                   className={`px-4 py-2 border ${
                     themeMode ? 'border-black' : 'border-white'
                   }`}>
-                  Apellido
-                </th>
-                <th
+                  {data.name.last}
+                </td>
+                <td
                   className={`px-4 py-2 border ${
                     themeMode ? 'border-black' : 'border-white'
                   }`}>
-                  Nombre De Usuario
-                </th>
-                <th
+                  {data.login.username}
+                </td>
+                <td
                   className={`px-4 py-2 border ${
                     themeMode ? 'border-black' : 'border-white'
                   }`}>
-                  Email
-                </th>
-                <th
+                  {data.email}
+                </td>
+                <td
                   className={`px-4 py-2 border ${
                     themeMode ? 'border-black' : 'border-white'
                   }`}>
-                  Acciones
-                </th>
+                  <button
+                    onClick={() => handleEdit(data.login.uuid)}
+                    className='mr-2'>
+                    <EditIcon />
+                  </button>
+                  <button onClick={() => deleteUser(data.login.uuid)}>
+                    <DeleteIcon />
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {users.map((user, index) => (
-                <tr key={user.id}>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {index + 1}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {user.name}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {user.last}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {user.userName}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {user.email}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    <button
-                      onClick={() => handleEdit(user.id)}
-                      className='mr-2'>
-                      <EditIcon />
-                    </button>
-                    <button onClick={() => deleteUser(user.id)}>
-                      <DeleteIcon />
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+            ))}
+          </tbody>
+        </table>
       </div>
       {editingUser && (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
