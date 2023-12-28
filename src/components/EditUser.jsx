@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import { ThemeContext } from '../context/ThemeContext';
 import { useUserStore } from '../store/users';
+
 const EditUser = ({ user, setEditingUser }) => {
   const { themeMode } = useContext(ThemeContext);
   const editUser = useUserStore((state) => state.editUser);
@@ -36,6 +37,7 @@ const EditUser = ({ user, setEditingUser }) => {
               Nombre
             </label>
             <input
+              required
               type='text'
               id='name'
               placeholder={user.current.name}
@@ -53,6 +55,7 @@ const EditUser = ({ user, setEditingUser }) => {
               Apellido
             </label>
             <input
+              required
               type='text'
               id='last'
               placeholder={user.current.last}
@@ -70,6 +73,7 @@ const EditUser = ({ user, setEditingUser }) => {
               Username
             </label>
             <input
+              required
               type='text'
               id='userName'
               placeholder={user.current.userName}
@@ -87,6 +91,7 @@ const EditUser = ({ user, setEditingUser }) => {
               Email
             </label>
             <input
+              required
               type='email'
               id='email'
               placeholder={user.current.email}
