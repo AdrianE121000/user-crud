@@ -5,6 +5,7 @@ import { useUserStore } from '../store/users';
 import EditUser from './EditUser';
 import { useState } from 'react';
 import { useRef } from 'react';
+import Pagination from './Pagination';
 
 const Users = () => {
   const { themeMode } = useContext(ThemeContext);
@@ -25,6 +26,13 @@ const Users = () => {
   const handleClick = () => {
     fetchUsers();
   };
+
+  const totalUsers = users.length;
+  const [usersForPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const lastIndext = currentPage * usersForPage;
+  const firstIndex = lastIndext - usersForPage;
 
   return (
     <>
@@ -81,56 +89,64 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {users.map((data, index) => (
-              <tr key={data.login.uuid}>
-                <td
-                  className={`px-4 py-2 border ${
-                    themeMode ? 'border-black' : 'border-white'
-                  }`}>
-                  {index + 1}
-                </td>
-                <td
-                  className={`px-4 py-2 border ${
-                    themeMode ? 'border-black' : 'border-white'
-                  }`}>
-                  {data.name.first}
-                </td>
-                <td
-                  className={`px-4 py-2 border ${
-                    themeMode ? 'border-black' : 'border-white'
-                  }`}>
-                  {data.name.last}
-                </td>
-                <td
-                  className={`px-4 py-2 border ${
-                    themeMode ? 'border-black' : 'border-white'
-                  }`}>
-                  {data.login.username}
-                </td>
-                <td
-                  className={`px-4 py-2 border ${
-                    themeMode ? 'border-black' : 'border-white'
-                  }`}>
-                  {data.email}
-                </td>
-                <td
-                  className={`px-4 py-2 border ${
-                    themeMode ? 'border-black' : 'border-white'
-                  }`}>
-                  <button
-                    onClick={() => handleEdit(data.login.uuid)}
-                    className='mr-2'>
-                    <EditIcon />
-                  </button>
-                  <button onClick={() => deleteUser(data.login.uuid)}>
-                    <DeleteIcon />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {users
+              .map((data, index) => (
+                <tr key={data.login.uuid}>
+                  <td
+                    className={`px-4 py-2 border ${
+                      themeMode ? 'border-black' : 'border-white'
+                    }`}>
+                    {index + 1}
+                  </td>
+                  <td
+                    className={`px-4 py-2 border ${
+                      themeMode ? 'border-black' : 'border-white'
+                    }`}>
+                    {data.name.first}
+                  </td>
+                  <td
+                    className={`px-4 py-2 border ${
+                      themeMode ? 'border-black' : 'border-white'
+                    }`}>
+                    {data.name.last}
+                  </td>
+                  <td
+                    className={`px-4 py-2 border ${
+                      themeMode ? 'border-black' : 'border-white'
+                    }`}>
+                    {data.login.username}
+                  </td>
+                  <td
+                    className={`px-4 py-2 border ${
+                      themeMode ? 'border-black' : 'border-white'
+                    }`}>
+                    {data.email}
+                  </td>
+                  <td
+                    className={`px-4 py-2 border ${
+                      themeMode ? 'border-black' : 'border-white'
+                    }`}>
+                    <button
+                      onClick={() => handleEdit(data.login.uuid)}
+                      className='mr-2'>
+                      <EditIcon />
+                    </button>
+                    <button onClick={() => deleteUser(data.login.uuid)}>
+                      <DeleteIcon />
+                    </button>
+                  </td>
+                </tr>
+              ))
+              .slice(firstIndex, lastIndext)}
           </tbody>
         </table>
       </div>
+      <Pagination
+        usersForPage={usersForPage}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+        totalUsers={totalUsers}
+      />
       {editingUser && (
         <div className='fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center'>
           <EditUser
