@@ -37,7 +37,9 @@ const Pagination = ({
         <button
           style={{ visibility: currentPage === 1 ? 'hidden' : '' }}
           onClick={onPreviusPage}
-          className='inline-flex items-center rounded-md border border-gray-500 bg-white px-4 py-2 text-sm font-medium text-gray-500 '>
+          className={`inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium ${
+            themeMode ? 'bg-white border-black' : 'bg-gray-900 border-white'
+          }`}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -55,7 +57,7 @@ const Pagination = ({
         <button
           style={{ visibility: pageNumbers.length <= 1 ? 'hidden' : '' }}
           aria-current='page'
-          className='inline-flex items-center border-4 border-indigo-600 px-4 py-2 text-sm font-semibold text-gray-900  rounded-lg'>
+          className='inline-flex items-center border-4 border-indigo-600 px-4 py-2 text-sm font-semibold rounded-lg'>
           {currentPage}
         </button>
         <button
@@ -63,7 +65,9 @@ const Pagination = ({
             visibility: currentPage >= pageNumbers.length ? 'hidden' : '',
           }}
           onClick={onNextPage}
-          className='ml-3 inline-flex items-center rounded-md border border-gray-500 bg-white px-4 py-2 text-sm font-medium text-gray-500'>
+          className={`inline-flex items-center rounded-md border px-4 py-2 text-sm font-medium ${
+            themeMode ? 'bg-white border-black' : 'bg-gray-900 border-white'
+          }`}>
           <svg
             xmlns='http://www.w3.org/2000/svg'
             fill='none'
@@ -113,10 +117,12 @@ const Pagination = ({
                     visibility: pageNumbers.length <= 1 ? 'hidden' : '',
                   }}
                   aria-current='page'
-                  className={`px-4 py-2 rounded-lg  border ${
-                    themeMode ? 'border-black' : 'border-white'
-                  }  ${
-                    currentPage === item ? 'border-4 border-indigo-600' : ''
+                  className={`px-4 py-2 rounded-lg  border  ${
+                    currentPage === item
+                      ? 'border-4 border-indigo-600'
+                      : themeMode
+                      ? 'border-black'
+                      : 'border-white'
                   }`}>
                   {item}
                 </button>

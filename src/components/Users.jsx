@@ -36,7 +36,7 @@ const Users = () => {
 
   return (
     <>
-      <div className='flex flex-col justify-center items-center mt-5'>
+      <div className='container mx-auto text-center mt-2'>
         <button
           className={`border w-auto rounded-2xl px-5 py-2 mb-2 ${
             themeMode
@@ -46,100 +46,101 @@ const Users = () => {
           onClick={handleClick}>
           Obtener usuarios randoms
         </button>
-
-        <table className='table-auto mt-3 w-4/5'>
-          <thead>
-            <tr>
-              <th
-                className={`px-4 py-2 border ${
-                  themeMode ? 'border-black' : 'border-white'
-                }`}>
-                ID
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  themeMode ? 'border-black' : 'border-white'
-                }`}>
-                Nombre
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  themeMode ? 'border-black' : 'border-white'
-                }`}>
-                Apellido
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  themeMode ? 'border-black' : 'border-white'
-                }`}>
-                Nombre De Usuario
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  themeMode ? 'border-black' : 'border-white'
-                }`}>
-                Email
-              </th>
-              <th
-                className={`px-4 py-2 border ${
-                  themeMode ? 'border-black' : 'border-white'
-                }`}>
-                Acciones
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {users
-              .map((data, index) => (
-                <tr key={data.login.uuid}>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {index + 1}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {data.name.first}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {data.name.last}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {data.login.username}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    {data.email}
-                  </td>
-                  <td
-                    className={`px-4 py-2 border ${
-                      themeMode ? 'border-black' : 'border-white'
-                    }`}>
-                    <button
-                      onClick={() => handleEdit(data.login.uuid)}
-                      className='mr-2'>
-                      <EditIcon />
-                    </button>
-                    <button onClick={() => deleteUser(data.login.uuid)}>
-                      <DeleteIcon />
-                    </button>
-                  </td>
-                </tr>
-              ))
-              .slice(firstIndex, lastIndext)}
-          </tbody>
-        </table>
+        <div className='overflow-x-auto '>
+          <table className='table-auto mt-3 w-full'>
+            <thead>
+              <tr>
+                <th
+                  className={`px-4 py-2 border ${
+                    themeMode ? 'border-black' : 'border-white'
+                  }`}>
+                  ID
+                </th>
+                <th
+                  className={`px-4 py-2 border ${
+                    themeMode ? 'border-black' : 'border-white'
+                  }`}>
+                  Nombre
+                </th>
+                <th
+                  className={`px-4 py-2 border ${
+                    themeMode ? 'border-black' : 'border-white'
+                  }`}>
+                  Apellido
+                </th>
+                <th
+                  className={`px-4 py-2 border ${
+                    themeMode ? 'border-black' : 'border-white'
+                  }`}>
+                  Nombre De Usuario
+                </th>
+                <th
+                  className={`px-4 py-2 border ${
+                    themeMode ? 'border-black' : 'border-white'
+                  }`}>
+                  Email
+                </th>
+                <th
+                  className={`px-4 py-2 border ${
+                    themeMode ? 'border-black' : 'border-white'
+                  }`}>
+                  Acciones
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {users
+                .map((data, index) => (
+                  <tr key={data.login.uuid}>
+                    <td
+                      className={`px-4 py-2 border ${
+                        themeMode ? 'border-black' : 'border-white'
+                      }`}>
+                      {index + 1}
+                    </td>
+                    <td
+                      className={`px-4 py-2 border ${
+                        themeMode ? 'border-black' : 'border-white'
+                      }`}>
+                      {data.name.first}
+                    </td>
+                    <td
+                      className={`px-4 py-2 border ${
+                        themeMode ? 'border-black' : 'border-white'
+                      }`}>
+                      {data.name.last}
+                    </td>
+                    <td
+                      className={`px-4 py-2 border ${
+                        themeMode ? 'border-black' : 'border-white'
+                      }`}>
+                      {data.login.username}
+                    </td>
+                    <td
+                      className={`px-4 py-2 border ${
+                        themeMode ? 'border-black' : 'border-white'
+                      }`}>
+                      {data.email}
+                    </td>
+                    <td
+                      className={`px-4 py-2 border ${
+                        themeMode ? 'border-black' : 'border-white'
+                      }`}>
+                      <button
+                        onClick={() => handleEdit(data.login.uuid)}
+                        className='mr-2'>
+                        <EditIcon />
+                      </button>
+                      <button onClick={() => deleteUser(data.login.uuid)}>
+                        <DeleteIcon />
+                      </button>
+                    </td>
+                  </tr>
+                ))
+                .slice(firstIndex, lastIndext)}
+            </tbody>
+          </table>
+        </div>
       </div>
       <Pagination
         usersForPage={usersForPage}
